@@ -1,0 +1,15 @@
+---
+title: "BDA - Assignment 1"
+
+author: "Anonymous"
+
+output: 
+  pdf_document:
+    toc: yes
+    toc_depth: 1
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
