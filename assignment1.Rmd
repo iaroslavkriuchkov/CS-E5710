@@ -13,3 +13,13 @@ urlcolor: blue
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# Exercise 1
+
+``` {.r}
+```
+
+# Exercise 2
+
+``` {.r}
+```
