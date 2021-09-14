@@ -16,10 +16,96 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Exercise 1
 
-``` {.r}
+``` {r}
 ```
 
 # Exercise 2
 
-``` {.r}
+## a)
+``` {r}
+x <- seq(0, 1, length.out = 10000)
+m = .2
+sigmasq = .01
+
+alpha = m * (m * (1 - m) / sigmasq - 1)
+beta = alpha * (1 - m) / m
+
+plot(x, dbeta(x, alpha, beta), type="l", xlab="y", ylab="", xaxs="i",
+     yaxs="i",  bty="n", cex=2)
+```
+
+## b)
+```{r}
+sample1000 = rbeta(1000, alpha, beta, ncp=0)
+hist(sample1000)
+```
+
+## c)
+```{r}
+mean(sample1000)
+var(sample1000)
+```
+
+## d)
+```{r}
+left_bound = mean(sample1000) - quantile(sample1000, probs = 0.95)
+right_bound = mean(sample1000) + quantile(sample1000, probs = 0.95)
+
+print(sprintf('The interval is [%f; %f]', left_bound, right_bound))
+```
+
+
+# Exercise 4
+
+## a) What is the probability of picking a red ball?
+``` {r}
+boxes <-
+  matrix(
+    c(2, 5, 4, 1, 1, 3),
+    ncol = 2,
+    byrow = TRUE,
+    dimnames = list(c("A", "B", "C"), c("red", "white"))
+  )
+p_red <- function(boxes) {
+  probA = 0.4
+  probB = 0.1
+  probC = 0.5
+  prob = boxes[1, 1] / (boxes[1, 1] + boxes[1, 2]) * probA + boxes[2, 1] /
+    (boxes[2, 1] + boxes[2, 2]) * probB + boxes[3, 1] / (boxes[3, 1] + boxes[3, 2]) *
+    probC
+  return(prob)
+}
+p_red(boxes = boxes)
+```
+
+## b) If a red ball was picked, from which box it most probably came from?
+``` {r}
+p_box <- function(boxes) {
+  probA = 0.4
+  probB = 0.1
+  probC = 0.5
+  
+  boxA = (boxes[1, 1] / (boxes[1, 1] + boxes[1, 2])) * probA / p_red(boxes = boxes)
+  boxB = (boxes[2, 1] / (boxes[2, 1] + boxes[2, 2])) * probB / p_red(boxes = boxes)
+  boxC = (boxes[3, 1] / (boxes[3, 1] + boxes[3, 2])) * probC / p_red(boxes = boxes)
+  
+  return (c(boxA, boxB, boxC))
+}
+p_box(boxes = boxes)
+```
+
+# Exercise 5
+
+## What is the probability that Elvis was an identical twin?
+``` {r}
+p_identical_twin <- function(fraternal_prob, identical_prob) {
+  boy = .5
+  girl = .5
+  
+  identical_twin = boy * identical_prob / (boy * identical_prob + boy * boy *
+                                             fraternal_prob)
+  return(identical_twin)
+}
+
+p_identical_twin(1 / 150, 1 / 400)
 ```
