@@ -15,9 +15,16 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Exercise 1
-
-``` {r}
-```
++ *Probabilities* -  numerical quantities, defined on a set of ‘outcomes,’ that are nonnegative, additive over mutually exclusive outcomes,and sum to 1 over all possible mutually exclusive outcomes.[1]
++ *Probability mass* - one of the ways of setting the distribution of a discrete random variable.
++ *Probability density* - one of the ways of setting the distribution of a continuous random variable.
++ *Probability mass function (pmf)* - a function that gives the probability that a discrete random variable is exactly equal to some value.
++ *Probability density function (pdf)* - a function of a continuous random variable, whose integral across an interval gives the probability that the value of the variable lies within the same interval.
++ *Probability distribution* - a mathematical function that gives the probabilities of occurrence of different possible outcomes for an experiment.
++ *Discrete probability distribution* - a probability distribution whose support is a countable set.
++ *Continuous probability distribution* - a probability distribution whose support is an uncountable set, such as an interval in the real line.
++ *Cumulative distribution function (cdf)* of a real-valued random variable X evaluated at x, is the probability that X will take a value less than or equal to x.
++ *Likelihood* - a function $p(y|\theta)$, which, regarded as a function of $\theta$, for fixed *y*, is used to affect posterior probability with data *y*.
 
 # Exercise 2
 
@@ -52,6 +59,25 @@ left_bound = mean(sample1000) - quantile(sample1000, probs = 0.95)
 right_bound = mean(sample1000) + quantile(sample1000, probs = 0.95)
 
 print(sprintf('The interval is [%f; %f]', left_bound, right_bound))
+```
+
+# Exercise 3
+``` {r}
+options(width = 60)
+# Event A = "Subject has cancer", event B = "Test is positive"
+prob_A = 0.001
+prob_BcondA = 0.98
+prob_NotBcondNotA = 0.96
+
+prob_AcondB = (prob_A * prob_BcondA) / (prob_A * prob_BcondA + (1 - prob_A) *
+                                          (1 - prob_NotBcondNotA))
+
+cat(sprintf('P(Subject has cancer | Test gives positive) = %f.
+That means,that P(Subject does not have cancer | Test gives positive) = %f.
+This is a high false positive rate, which means that there might be quite 
+a lot of unnecessarily administer medications, which is undesirable.',
+prob_AcondB, 1-prob_AcondB))
+
 ```
 
 
@@ -109,3 +135,7 @@ p_identical_twin <- function(fraternal_prob, identical_prob) {
 
 p_identical_twin(1 / 150, 1 / 400)
 ```
+
+# List of references
+1. Gelman, A., Carlin, J.B., Stern, H.S., Dunson, D.B., Vehtari, A., & Rubin, D.B. (2013). Bayesian Data Analysis (3rd ed.). Chapman and Hall/CRC. https://doi.org/10.1201/b16018
+
